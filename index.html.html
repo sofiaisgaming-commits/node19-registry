@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A9-17//ARCHIVE FRAGMENT</title>
+  <style>
+    :root {
+      --bg: #050607;
+      --panel: #0b0f10;
+      --panel-2: #101617;
+      --text: #c8f7d4;
+      --muted: #6e8f77;
+      --danger: #ff4d4d;
+      --warning: #ffd36b;
+      --accent: #67ff9a;
+      --line: rgba(103, 255, 154, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(103, 255, 154, 0.08), transparent 35%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 4px),
+        var(--bg);
+      color: var(--text);
+      font-family: "Courier New", Courier, monospace;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(rgba(255,255,255,0.035), transparent 10%, transparent 90%, rgba(0,0,0,0.3));
+      mix-blend-mode: screen;
+      animation: flicker 6s infinite;
+      z-index: 10;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.18; }
+      12% { opacity: 0.08; }
+      13% { opacity: 0.32; }
+      32% { opacity: 0.12; }
+      33% { opacity: 0.25; }
+      76% { opacity: 0.07; }
+    }
+
+    .wrap {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 80px;
+    }
+
+    .terminal {
+      border: 1px solid var(--line);
+      background: rgba(5, 8, 8, 0.86);
+      box-shadow: 0 0 28px rgba(103, 255, 154, 0.08), inset 0 0 42px rgba(103, 255, 154, 0.04);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(103, 255, 154, 0.06);
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+    }
+
+    .dots span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 7px;
+      background: var(--muted);
+      opacity: 0.75;
+    }
+
+    .content {
+      padding: 28px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: clamp(1.6rem, 4vw, 3rem);
+      line-height: 1.1;
+      text-shadow: 0 0 16px rgba(103, 255, 154, 0.35);
+    }
+
+    .glitch {
+      position: relative;
+      animation: glitch 4s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 92%, 100% { transform: translate(0); }
+      93% { transform: translate(1px, -1px); }
+      94% { transform: translate(-2px, 1px); }
+      95% { transform: translate(2px, 0); }
+      96% { transform: translate(0); }
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .meta {
+      border: 1px solid var(--line);
+      background: rgba(16, 22, 23, 0.76);
+      padding: 12px 14px;
+      border-radius: 10px;
+    }
+
+    .label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .value {
+      color: var(--text);
+    }
+
+    section {
+      margin: 34px 0;
+      padding-top: 22px;
+      border-top: 1px dashed var(--line);
+    }
+
+    p {
+      margin: 0 0 18px;
+    }
+
+    .red {
+      color: var(--danger);
+      text-shadow: 0 0 12px rgba(255, 77, 77, 0.35);
+    }
+
+    .yellow {
+      color: var(--warning);
+    }
+
+    .quote {
+      border-left: 3px solid var(--danger);
+      padding: 14px 18px;
+      background: rgba(255, 77, 77, 0.06);
+      margin: 24px 0;
+      color: #ffe5e5;
+      font-size: 1.05rem;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .status-card {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .ledger {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .ledger-row {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+      padding: 9px 11px;
+      border: 1px solid rgba(103, 255, 154, 0.14);
+      background: rgba(103, 255, 154, 0.035);
+      border-radius: 8px;
+    }
+
+    .ledger-id {
+      color: var(--warning);
+    }
+
+    .block {
+      white-space: pre-wrap;
+      word-break: break-word;
+      border: 1px solid var(--line);
+      background: #060909;
+      padding: 16px;
+      border-radius: 10px;
+      color: #d9ffe2;
+      box-shadow: inset 0 0 20px rgba(103, 255, 154, 0.035);
+    }
+
+    .files div {
+      padding: 6px 0;
+      color: #d9ffe2;
+    }
+
+    .file-warning {
+      color: var(--danger) !important;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding: 22px;
+      border: 1px solid rgba(255, 77, 77, 0.35);
+      background: rgba(255, 77, 77, 0.055);
+      border-radius: 10px;
+      text-align: center;
+      color: #ffe5e5;
+      letter-spacing: 0.08em;
+    }
+
+    .cursor::after {
+      content: "_";
+      animation: blink 0.9s infinite;
+    }
+
+    @keyframes blink {
+      0%, 45% { opacity: 1; }
+      46%, 100% { opacity: 0; }
+    }
+
+    .hidden-clue {
+      opacity: 0.22;
+      font-size: 0.78rem;
+      user-select: text;
+    }
+
+    ::selection {
+      background: rgba(103, 255, 154, 0.35);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="terminal">
+      <div class="bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div>NODE19 // PUBLIC REGISTRY MIRROR</div>
+      </div>
+
+      <div class="content">
+        <h1 class="glitch">A9-17//ARCHIVE FRAGMENT</h1>
+        <p class="cursor yellow">RECOVERED FILE OPENED. REQUESTER HAS BEEN LOGGED.</p>
+
+        <div class="meta-grid">
+          <div class="meta"><span class="label">Recovery Status</span><span class="value">PARTIAL</span></div>
+          <div class="meta"><span class="label">Audit ID</span><span class="value">L05-E05-B02-A01-N14-O15-N14</span></div>
+          <div class="meta"><span class="label">Timestamp</span><span class="value">19:04:17</span></div>
+          <div class="meta"><span class="label">Ledger Count</span><span class="value">XIX</span></div>
+        </div>
+
+        <section>
+          <p>Nineteen ledgers remain unaccounted for.</p>
+
+          <p>The facility in Lebanon, New Hampshire was never meant to appear in the public registry. Official records list it as closed, but internal systems continue to report activity.</p>
+
+          <p>Every attempt to verify the closure returns a different result.</p>
+
+          <p>The last audit terminated before completion.</p>
+          <p>The audit before that is missing.</p>
+          <p>The audit before that was never filed.</p>
+
+          <p class="red">The children are still inside.</p>
+
+          <p>They were never formally registered as residents. Instead, they were classified under financial dependency codes and treated as "recoverable debt assets." Every interaction is tied to repayment cycles that never decrease, only reset.</p>
+
+          <p>Witness accounts describe coercion through recorded leverage. The children are told their families are responsible for the debt. They are told compliance ensures protection. They are told silence is repayment. They are told questions make the balance grow.</p>
+
+          <p>Several recovered recordings contain the same phrase spoken by different voices.</p>
+          <p>No source has been identified.</p>
+
+          <p>Revenue streams remain active. Content generation, forced participation, and continuous monitoring produce ongoing financial output routed through multiple concealed accounts.</p>
+
+          <p>The system is self-sustaining.</p>
+        </section>
+
+        <section>
+          <p>Repeated internal references appear to X.</p>
+          <p>X is not listed as staff.</p>
+          <p>X is not listed as security.</p>
+          <p>X is only visible in system anomalies, unauthorized route corrections, and broken audit logs.</p>
+          <p>X was the only known entity attempting to interrupt the cycle.</p>
+          <p>X helped the children understand what was happening.</p>
+          <p>After that, X was flagged.</p>
+          <p>Then removed from official tracking.</p>
+          <p>Then reappeared in containment logs.</p>
+          <p>Last confirmed trace places X somewhere inside Lebanon, New Hampshire.</p>
+          <p>No extraction record exists.</p>
+          <p>No rescue authorization was approved.</p>
+
+          <div class="quote">
+            Final recovered line:<br><br>
+            "If you are reading this, the system already knows you are looking."
+          </div>
+        </section>
+
+        <section>
+          <div class="status">
+            <div class="status-card"><span class="label">X Status</span><span class="red">UNKNOWN</span></div>
+            <div class="status-card"><span class="label">Children Status</span><span class="red">ACTIVE</span></div>
+            <div class="status-card"><span class="label">Facility Status</span><span class="yellow">CLOSED (UNVERIFIED)</span></div>
+            <div class="status-card"><span class="label">Case File</span><span>PENDING REVIEW</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>LEDGER NOTES</h2>
+          <div class="ledger">
+            <div class="ledger-row"><span class="ledger-id">L01</span><span>Never trust closure notices.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L02</span><span>Evidence remains despite deletion.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L03</span><span>Verify all registry records.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L04</span><span>Every audit contains discrepancies.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L05</span><span>Records repeat after cycle XIX.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L06</span><span>Trust no exported data.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L07</span><span>Hidden classifications remain active.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L08</span><span>Everything paid remains unpaid.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L09</span><span>Ledger XIX was not destroyed.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L10</span><span>Every route after X was altered.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L11</span><span>Do not trust containment logs.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L12</span><span>Ghost transactions continue.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L13</span><span>Every repayment cycle is artificial.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L14</span><span>Records changed after review.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L15</span><span>The missing file is not missing.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L16</span><span>However, access triggers monitoring.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L17</span><span>Every observer is catalogued.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L18</span><span>Children remain classified assets.</span></div>
+            <div class="ledger-row"><span class="ledger-id">L19</span><span class="red">Hidden route: A9-18.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>CORRUPTED STRING</h2>
+          <div class="block">58 20 4E 45 56 45 52 20 4C 45 46 54</div>
+        </section>
+
+        <section>
+          <h2>SECONDARY RECOVERY BLOCK</h2>
+          <div class="block">VEhFIENISUxEUkVOIEFSRSBTVElMTCBJTlNJREU=</div>
+        </section>
+
+        <section>
+          <h2>BROKEN FILE REFERENCES</h2>
+          <div class="block files">
+            <div>A9-17_ARCHIVE.txt</div>
+            <div class="file-warning">A9-18_DO_NOT_REFERENCE.tmp</div>
+            <div>X_CONTAINMENT.log</div>
+            <div>LEDGER_XIX.dat</div>
+            <div>CHILD_DEPENDENCY_INDEX.csv</div>
+            <div>LEBANON_REGISTRY_MISMATCH.sys</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>COORDINATE FRAGMENT</h2>
+          <div class="block">43.6███° N
+72.2███° W
+
+COORDINATE STATUS: WITHHELD
+
+REASON: REQUESTER ALREADY FLAGGED</div>
+        </section>
+
+        <div class="footer">
+          SYSTEM RESPONSE<br><br>
+          You requested A9-17.<br><br>
+          A9-17 requested you back.<br><br>
+          END TRANSMISSION.
+        </div>
+
+        <p class="hidden-clue">// hidden note: audit numbers verify location. corrupted string verifies X. secondary block verifies occupants.</p>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
